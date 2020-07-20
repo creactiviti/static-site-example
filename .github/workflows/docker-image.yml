@@ -13,4 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag creactiviti/static-site-example:$(date +%s)
+      run: | 
+        TAG=$(date +%s)
+        docker build . --file Dockerfile --tag creactiviti/static-site-example:$TAG
+        docker push creactiviti/static-site-example:$TAG
