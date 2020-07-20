@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-site-example
+spec:
+  selector:
+    matchLabels:
+      app: static-site-example
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: static-site-example
+    spec:
+      containers:
+      - name: static-site-example
+        image: creactiviti/static-site-example:1595260985
+        env:
+            - name: VERSION
+              value: "0001"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-site-example
+spec:
+  selector:
+    app: static-site-example
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
