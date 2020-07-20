@@ -12,7 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: docker login
+      run: |
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - name: Build & Push Docker image
       run: | 
         TAG=$(date +%s)
         docker build . --file Dockerfile --tag creactiviti/static-site-example:$TAG
